@@ -37,10 +37,56 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+
+const keys = Object.keys(MORSE_TABLE);
+const values = Object.values(MORSE_TABLE);
+
 function decode(expr) {
-    // write your solution here
+  // write your solution here
+let arr = [];
+let strArr = [];
+let finArr = [];
+
+for (let i = 0; i < expr.length; i += 10) {
+    let subStr = expr.slice(i, i + 10);
+    let subArr = [];
+    if (subStr !== "**********") {
+    for (let i = 0; i < subStr.length; i += 2) {
+        let subSubStr = subStr.slice(i, i + 2);
+        if (subSubStr !== "00") {
+        subArr.push([subSubStr]);
+        }
+    }
+    } else {
+    subArr.push([subStr]);
+    }
+    arr.push(subArr);
 }
 
-module.exports = {
-    decode
+for (let el of arr) {
+    for (let subEl of el) {
+        for (let i = 0; i < subEl.length; i++) {
+        subEl[i] === "11"
+        ? (subEl[i] = "-")
+        : subEl[i] === "10"
+        ? (subEl[i] = ".")
+        : (subEl[i] = " ");
+        }
+    }
+finArr.push(el.join(""));
+}
+
+for (let el of finArr) {
+    if (el === " ") {
+    strArr.push(el);
+    } else {
+        for (let i = 0; i < keys.length; i++) {
+            if (el === keys[i]) {
+            strArr.push(values[i]);
+            }
+        }
+    }
+}
+
+return strArr.join("");
 }
