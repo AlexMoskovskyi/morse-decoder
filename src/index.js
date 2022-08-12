@@ -90,3 +90,6 @@ for (let el of finArr) {
 
 return strArr.join("");
 }
+module.exports = {
+    decode,
+};
